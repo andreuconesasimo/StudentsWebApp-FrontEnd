@@ -35,35 +35,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.GUID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DNI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegistryDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { guid=item.GUID }) |
-            @Html.ActionLink("Details", "Details", new { guid=item.GUID }) |
-            @Html.ActionLink("Delete", "Delete", new { guid=item.GUID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GUID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DNI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistryDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { guid = item.GUID }) |
+                @Html.ActionLink("Details", "Details", new { guid = item.GUID }) |
+                @Html.ActionLink("Delete", "Delete", new { guid = item.GUID })
+            </td>
+        </tr>
+    }
 
 </table>

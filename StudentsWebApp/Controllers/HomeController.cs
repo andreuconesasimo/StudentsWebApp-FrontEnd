@@ -11,14 +11,15 @@ using System.Web.Mvc;
 namespace StudentsWebApp.Controllers
 {
     public class HomeController : Controller
-    {        
-        
+    {
+
         //Hosted web API REST Service base url  
         string Baseurl = System.Configuration.ConfigurationManager.AppSettings[ConfigStrings.BaseUrl];
 
         // GET: Home
         public async Task<ActionResult> Index()
         {
+            
             List<Student> students = new List<Student>();
 
             using (var client = new HttpClient())
@@ -97,6 +98,7 @@ namespace StudentsWebApp.Controllers
             }            
         }
 
+        [HttpDelete]
         public ActionResult Delete(string guid)
         {
             using (var client = new HttpClient())
