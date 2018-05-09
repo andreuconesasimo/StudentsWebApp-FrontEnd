@@ -32,7 +32,7 @@ namespace StudentsWebApp.Controllers
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //Sending request to find web api REST service resource get all students using HttpClient  
-                HttpResponseMessage Res = await client.GetAsync("api/Students");
+                HttpResponseMessage Res = await client.GetAsync("api/Students/Get");
 
                 //Checking the response is successful or not which is sent using HttpClient  
                 if (Res.IsSuccessStatusCode)
@@ -60,7 +60,7 @@ namespace StudentsWebApp.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                var postTask = client.PostAsJsonAsync<Student>("api/Students", student);
+                var postTask = client.PostAsJsonAsync<Student>("api/Students/Post", student);
                 postTask.Wait();
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -86,7 +86,7 @@ namespace StudentsWebApp.Controllers
                 client.BaseAddress = new Uri(Baseurl);
                 client.DefaultRequestHeaders.Clear();                
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));                
-                HttpResponseMessage Res = await client.GetAsync("api/Students?guid=" + guid);
+                HttpResponseMessage Res = await client.GetAsync("api/Students/Get/?guid=" + guid);
                 
                 if (Res.IsSuccessStatusCode)
                 {                    
@@ -98,18 +98,15 @@ namespace StudentsWebApp.Controllers
             }            
         }
 
-        [HttpDelete]
-        public ActionResult Delete(string guid)
+        [HttpGet]
+        public async Task<ActionResult> Delete(string guid)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                var deleteTask = client.DeleteAsync("api/Students?guid=" + guid);
-                deleteTask.Wait();
-                var result = deleteTask.Result;
-                if (result.IsSuccessStatusCode)
+                HttpResponseMessage responseMessage = await client.DeleteAsync("api/Students/Delete/?guid=" + guid);
+                if (responseMessage.IsSuccessStatusCode)
                 {
-
                     return RedirectToAction("Index");
                 }
             }
@@ -122,7 +119,7 @@ namespace StudentsWebApp.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                HttpResponseMessage responseMessage = await client.PutAsJsonAsync<Student>("api/Students/"+student.GUID, student);
+                HttpResponseMessage responseMessage = await client.PutAsJsonAsync<Student>("api/Students/Put/?guid=" + student.GUID, student);
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
@@ -136,7 +133,7 @@ namespace StudentsWebApp.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                HttpResponseMessage responseMessage = await client.GetAsync("api/Students?guid=" + guid);
+                HttpResponseMessage responseMessage = await client.GetAsync("api/Students/Get/?guid=" + guid);
                 if (responseMessage.IsSuccessStatusCode)
                 {
                     var responseData = responseMessage.Content.ReadAsStringAsync().Result;
